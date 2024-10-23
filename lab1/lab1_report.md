@@ -161,3 +161,26 @@ add disabled=no interface=bridge20
 ```
 
 Краткое объяснение: соединяем мостом соответствующую VLAN с портом, подключённым к ПК, настраиваем на него DHCP-клиент.
+
+На интерфейсы коммутаторов уже выдаются IP-адреса, а для их выдачи на ПК необходимо установить DHCP-клиент. Для этого подключаемся к ПК командой *docker exec -it clab-lab_1-PC1 bash* и вводим:
+
+```
+/interface bridge
+apt update
+apt install udhcpc
+udhcpc -i eth1
+```
+IP-адрес получен:
+
+![Screenshot from 2024-10-23 23-52-14](https://github.com/user-attachments/assets/b9843522-206f-4799-9d6d-afdff98516ac)
+
+То же самое проделываем и со вторым ПК. Результат можем подтвердить через таблицу DHCP-сервера роутера командой */ip dhcp-server lease print*:
+
+![Screenshot from 2024-10-23 23-54-02](https://github.com/user-attachments/assets/b8ffc58f-5fc9-44f0-bdbc-cd11a0a0e47a)
+
+*ping* тоже отлично проходит:
+
+![Screenshot from 2024-10-23 23-56-51](https://github.com/user-attachments/assets/13ee1da6-980d-4580-a948-5e1914398b49)
+
+
+Готово! Лабораторная работа выполнена.
