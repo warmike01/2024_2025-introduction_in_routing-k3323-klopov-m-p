@@ -14,7 +14,7 @@
 
 Сначала на компьютер с Ubuntu LTS 20.04 был установлен Containerlab.
 
-Затем с помощью YAML-файла была создана топология сети/ 
+Затем с помощью YAML-файла была задана топология сети:
 
 Файл *lab1.yml*:
 ```
@@ -66,3 +66,98 @@ mgmt:
 ![Screenshot from 2024-10-23 23-05-27](https://github.com/user-attachments/assets/7a46ad62-3ea1-412a-839c-c3b5345833c0)
 
 Затем были пробы и ошибки. Много проб и много ошибок. Но в итоге удалось создать конфигурации роутера и коммутаторов, при которых они не требуют ручной настройки.
+
+Во-первых, чтобы подключаться к микротикам по ssh, в файл */home/warmike01/.ssh/config* нужно было добавить
+
+```
+Host clab-*
+        User root
+        StrictHostKeyChecking no
+        UserKnownHostsFile /dev/null 
+```
+Чтобы при перезапуске контейнеров не приходилось зачищать known_hosts, туда же добавлено
+
+```
+Host 192.168.*.*       
+        StrictHostKeyChecking no
+        UserKnownHostsFile /dev/null 
+```
+
+Теперь в контейнеры можно заходить по ssh, напримнер в роутер заходим командой *ssh admin@192.168.2.254* и вводим пароль admin.
+
+![Screenshot from 2024-10-23 23-35-08](https://github.com/user-attachments/assets/0932b09c-3610-48a3-a73f-735ee94fed96)
+
+Оттуда можно вводить команды, которые в итоге с помощью команды */export* были перенесены в конфиги, чтобы при перезапуске контейнера не вводить их вручную:
+
+Файл *configs/router_config.cfg*:
+```
+/interface vlan
+add interface=ether2 name=vlan10 vlan-id=10
+add interface=ether2 name=vlan20 vlan-id=20
+/ip pool
+add name=vlan10_pool ranges=10.10.10.0-10.10.10.254
+add name=vlan20_pool ranges=10.10.20.0-10.10.20.254
+/ip dhcp-server
+add address-pool=vlan10_pool disabled=no interface=vlan10 name=dhcp-vlan10
+add address-pool=vlan20_pool disabled=no interface=vlan20 name=dhcp-vlan20
+/ip address
+add address=10.10.10.129/25 interface=vlan10 network=10.10.10.128
+add address=10.10.20.129/25 interface=vlan20 network=10.10.20.128
+add address=10.10.2.2/19 interface=ether2 network=10.10.0.0
+/ip dhcp-server network
+add address=10.10.10.128/25 gateway=10.10.10.129
+add address=10.10.20.128/25 gateway=10.10.20.129
+```
+
+Краткое объяснение: создаём две VLAN, выдаём им пул IP-адресов и настраиваем на него DHCP-сервер, выдаём серверу IP-адреса в каждой из этих VLANов.
+
+Файл *configs/switch1_config.cfg*:
+```
+/interface bridge
+add name=bridge10
+add name=bridge20
+/interface vlan
+add interface=ether2 name=vlan10 vlan-id=10
+add interface=ether3 name=vlan11 vlan-id=10
+add interface=ether2 name=vlan20 vlan-id=20
+add interface=ether4 name=vlan21 vlan-id=20
+/interface bridge port
+add bridge=bridge10 interface=vlan10
+add bridge=bridge10 interface=vlan11
+add bridge=bridge20 interface=vlan21
+add bridge=bridge20 interface=vlan20
+/ip dhcp-client
+add disabled=no interface=bridge10
+add disabled=no interface=bridge20
+```
+
+Краткое объяснение: создаём два моста, добавляем на них VLANы (в каждой из которых два интерфейса - на роутер и на соответствующий коммутатор) и настраиваем на них DHCP-клиент.
+
+
+Файл *configs/switch2_config.cfg*:
+```
+/interface bridge
+add name=bridge10
+/interface vlan
+add interface=ether2 name=vlan10 vlan-id=10
+/interface bridge port
+add bridge=bridge10 interface=vlan10
+add bridge=bridge10 interface=ether3
+/ip dhcp-client
+add disabled=no interface=bridge10
+```
+
+Файл *configs/switch3_config.cfg*:
+```
+/interface bridge
+add name=bridge20
+/interface vlan
+add interface=ether2 name=vlan20 vlan-id=20
+/interface bridge port
+add bridge=bridge20 interface=vlan20
+add bridge=bridge20 interface=ether3
+/ip dhcp-client
+add disabled=no interface=bridge20
+```
+
+Краткое объяснение: соединяем мостом соответствующую VLAN с портом, подключённым к ПК, настраиваем на него DHCP-клиент.
