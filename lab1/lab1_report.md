@@ -165,7 +165,6 @@ add disabled=no interface=bridge20
 На интерфейсы коммутаторов уже выдаются IP-адреса, а для их выдачи на ПК необходимо установить DHCP-клиент. Для этого подключаемся к ПК командой *docker exec -it clab-lab_1-PC1 bash* и вводим:
 
 ```
-/interface bridge
 apt update
 apt install udhcpc
 udhcpc -i eth1
