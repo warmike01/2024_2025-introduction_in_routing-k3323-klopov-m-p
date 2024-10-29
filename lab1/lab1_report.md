@@ -5,7 +5,7 @@
 - Group: K3323
 - Author: Klopov Mikhail Pavlovich
 - Lab: Lab1
-- Date of create: 11.09.2023
+- Date of create: 11.09.2024
 - Date of finished: 23.10.2024
 
 # Отчет по лабораторной работе №1 "Установка ContainerLab и развёртывание тестовой сети связи"
