@@ -8,7 +8,7 @@
 - Date of create: 11.10.2024
 - Date of finished: 27.11.2024
 
-# Отчет по лабораторной работе №2 "Эмуляция распределенной корпоративной сети связи, настройка OSPF и MPLS, организация первого EoMPLS"
+# Отчет по лабораторной работе №3 "Эмуляция распределенной корпоративной сети связи, настройка OSPF и MPLS, организация первого EoMPLS"
 
 ## Ход работы
 
@@ -75,3 +75,8 @@ mgmt:
  network: static
  ipv4-subnet: 192.168.2.0/24
 ```
+Вывод команды *containerlab graph -t lab3.yml*:
+
+![Карта сети]([https://github.com/user-attachments/assets/cc4fcfa9-d76f-46b2-9ec5-9a9fa986a55b](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab3/Screenshot%20from%202024-12-13%2016-04-11.png))
+
+Как и в прошлых работах, вся настройка маршрутизаторов была выполнена в конфигурационных файлах.
