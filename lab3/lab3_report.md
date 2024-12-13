@@ -206,3 +206,5 @@ add interface=ether4
 add bridge=vpn interface=ether4
 add bridge=vpn interface=l2vpn
 ```
+На компьютеры были установлены нужные пакеты командой *apt update && apt install -y iputils-ping && apt install -y iproute2 && apt install -y traceroute && apt install -y udhcpc && udhcpc -i eth1* и установлен default gateway, в результате между ними могут проходить пакеты:
+![Проверка связи](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab3/Screenshot%20from%202024-12-13%2018-47-05.png)
