@@ -77,6 +77,10 @@ mgmt:
 ```
 Вывод команды *containerlab graph -t lab3.yml*:
 
-![Карта сети]([https://github.com/user-attachments/assets/cc4fcfa9-d76f-46b2-9ec5-9a9fa986a55b](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab3/Screenshot%20from%202024-12-13%2016-04-11.png))
+![Карта сети](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab3/Screenshot%20from%202024-12-13%2016-04-11.png)
 
-Как и в прошлых работах, вся настройка маршрутизаторов была выполнена в конфигурационных файлах.
+Большая часть настройки маршрутизаторов была выполнена в конфигурационных файлах. Однако, OSPF почему-то не работает при объявлнии в конфигах, поэтому пришлось вго настроить на всех роутерах с помощью WinBox:
+
+![Настройка OSPF](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab3/Screenshot%20from%202024-12-11%2023-54-51.png)
+
+На всех маршрутизаторах На конечных пунктах сети (в Санкт-Петербурге и Нью-Йорке) были 
