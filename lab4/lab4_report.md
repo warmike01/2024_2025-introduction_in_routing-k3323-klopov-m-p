@@ -82,3 +82,28 @@ mgmt:
  network: static
  ipv4-subnet: 192.168.2.0/24
 ```
+
+Вывод команды *containerlab graph -t lab4.yml*:
+
+![Карта сети](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab4/Screenshot%20from%202025-01-23%2005-19-36.png)
+
+
+
+Базовая настройка маршрутизаторов была выполнена в конфигурационных файлах (ознакомиться с ними можно в папке проекта), а OSPF и BGP настроены с помощью WinBox. 
+
+Сначала, как и в прошлой работе, на каждом роутере объявлен OSPF (пример для Хельсинки):
+
+![OSPF](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab4/Screenshot%20from%202025-01-23%2016-45-26.png)
+
+Затем на каждом роутере объявлен инстанс BGP:
+
+![Инстанс BGP](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab4/Screenshot%20from%202025-01-23%2016-59-01.png)
+
+На каждом роутере объявлены соседи:
+
+![Соседи BGP](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab4/Screenshot%20from%202025-01-23%2005-05-36.png)
+
+Наконец, на роутерах, подключённых к компьютерам (SPB, SVL, NYC) объявлен VRF (пример для Нью-Йорка):
+
+![VRF](https://github.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/blob/master/lab4/Screenshot%20from%202025-01-23%2017-11-36.png)
+
