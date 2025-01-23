@@ -107,3 +107,10 @@ mgmt:
 
 ![VRF](https://github.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/blob/master/lab4/Screenshot%20from%202025-01-23%2017-11-36.png)
 
+В результате таблица маршрутизации в Нью-Йорке выглядит так:
+
+![Таблица маршрутизации](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab4/Screenshot%20from%202025-01-23%2005-15-27.png)
+
+Связь с сетью Санкт-Петербурга проходит: 
+
+![Связь NYC-SPB](https://raw.githubusercontent.com/warmike01/2024_2025-introduction_in_routing-k3323-klopov-m-p/refs/heads/master/lab4/Screenshot%20from%202025-01-23%2005-17-11.png)
